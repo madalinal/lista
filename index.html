@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="store">
+    <script type="text/javascript" src= "bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src= "bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="scripts/app.js"> </script>
+    <script type="text/javascript" src="scripts/controllers/appController.js"></script>
+    <link rel="stylesheet" type="text/css" href="templates/css/css.css">
+
+<body >
+<div  ng-controller="personCtrl" >
+
+    <button ng-click="toggle()">Adauga produs</button>
+
+    <p ng-hide="myVar" >
+        <label> Denumire:<input type="text" ng-model="newdenumire" /></label><br><br>
+        <label> Amanunte:<input type="text" ng-model="newamanunte"  /></label><br><br>
+
+    </p>
+    <button ng-click="addListItem(newdenumire, newamanunte)">Insereaza Produs in lista</button>
+    <br>
+    <br>
+
+    Cautati un produs: <input type="text" ng-model="search.denumire">
+
+    <div>
+    <h3>Your Shopping List:</h3>
+    <ul ng-repeat="item in listItems | filter:search" >
+        <li >
+
+            <div ng-class="{strike:deleted}">
+                {{item.denumire}}
+            </div>
+
+            <div ng-class="{strike:deleted}">
+                {{item.amanunte}}
+            </div>
+
+            <button ng-click="removeListItem(item)">Stergere produs</button>
+            <input type="checkbox" ng-model="deleted" ng-click="cumparat(item)">
+        </li>
+    </ul>
+    <button ng-click="removeAllCumparat()"> Sterge produse cumparate </button>
+
+
+</div>
+</div>
+</body>
+</html>
