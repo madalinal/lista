@@ -6,8 +6,16 @@
     <script type="text/javascript" src="scripts/app.js"> </script>
     <script type="text/javascript" src="scripts/controllers/appController.js"></script>
     <link rel="stylesheet" type="text/css" href="templates/css/css.css">
+    <script type="text/javascript" src="scripts/directives/appDirective.js" ></script>
+    <script  type="text/javascript" src="scripts/filtres/filtru.js" ></script>
 
 <body >
+
+<div>
+    <my-directive>
+
+</div>
+
 <div  ng-controller="personCtrl" >
 
     <button ng-click="toggle()">Adauga produs</button>
@@ -21,23 +29,39 @@
     <br>
     <br>
 
-    Cautati un produs: <input type="text" ng-model="search.denumire">
+    Cautati un produs: <input type="text" ng-model="search">
 
     <div>
     <h3>Your Shopping List:</h3>
-    <ul ng-repeat="item in listItems | filter:search" >
+    <ul ng-repeat="item in listItems | filtru:search" >
         <li >
 
-            <div ng-class="{strike:deleted}">
+            <div ng-show="item.editare" ng-class="{strike:deleted}">
                 {{item.denumire}}
             </div>
+            <div ng-hide="item.editare"> <input ng-model="item.denumire" type="text"></div>
 
-            <div ng-class="{strike:deleted}">
+
+            <div ng-show="item.editare" ng-class="{strike:deleted}">
                 {{item.amanunte}}
             </div>
+            <div ng-hide="item.editare"> <input ng-model="item.amanunte" type="text"></div>
+
+
+            <input type="checkbox" ng-model="deleted" ng-click="cumparat(item)">
 
             <button ng-click="removeListItem(item)">Stergere produs</button>
-            <input type="checkbox" ng-model="deleted" ng-click="cumparat(item)">
+
+
+
+
+
+            <button ng-show="item.editare" ng-click="editareShow(item)"> Edit </button>
+            <button ng-hide="item.editare" ng-click="salvareEditare(item, item.denumire, item.amanunte)">Salvare editare</button>
+
+
+
+
         </li>
     </ul>
     <button ng-click="removeAllCumparat()"> Sterge produse cumparate </button>
